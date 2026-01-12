@@ -6,11 +6,12 @@ import CustomerAccounts from '../components/customer/CustomerAccounts'
 import Inventory from '../components/dashboard/Inventory'
 import ClosingReport from '../components/dashboard/ClosingReport'
 import { Toaster } from 'sonner'
+import { TailwindTest } from './TailwindTest'
 
 function App() {
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'sales' | 'inventory' | 'customers' | 'salesmen' | 'expenses' | 'accounts' | 'reports'
-  >('dashboard')
+    'dashboard' | 'sales' | 'inventory' | 'customers' | 'salesmen' | 'expenses' | 'accounts' | 'reports' | 'test'
+  >('test')
 
   return (
     <div className="min-h-screen">
@@ -21,6 +22,7 @@ function App() {
       <main className="container mx-auto p-4">
         <div className="flex flex-wrap gap-2 mb-6">
           {[
+            { key: 'test', label: 'Test Tailwind' },
             { key: 'dashboard', label: 'Dashboard' },
             { key: 'sales', label: 'Sales' },
             { key: 'inventory', label: 'Inventory' },
@@ -42,6 +44,7 @@ function App() {
           ))}
         </div>
 
+        {activeTab === 'test' && <TailwindTest />}
         {activeTab === 'dashboard' && <Dashboard user={null} onLogout={() => {}} />}
         {activeTab === 'sales' && <div className="p-4 text-center text-gray-500">Sales module (placeholder)</div>}
         {activeTab === 'inventory' && <Inventory inventory={[]} onAddItem={() => {}} onEditItem={() => {}} onUpdateStock={() => {}} onSellItem={() => {}} onDeleteItem={() => {}} onViewDetails={() => {}} />}
