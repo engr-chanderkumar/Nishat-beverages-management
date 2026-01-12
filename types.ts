@@ -73,16 +73,20 @@ export interface ExpenseOwner {
     name: string;
 }
 
+// In your types file (e.g., types.ts)
 export interface Expense {
-    id: number;
-    date: string; // ISO string format
-    category: string;
-    name: string; // Formerly description
-    description?: string; // Optional details
-    amount: number;
-    paymentMethod: 'Cash' | 'Bank';
-    ownerId?: number | null;
-    ownerType?: 'salesman' | 'owner' | null;
+  id?: number;
+  date: string;
+  category: string;
+  name: string;
+  description?: string;
+  amount: number;
+  paymentMethod: 'Cash' | 'Bank';
+  ownerId: number | null;
+  ownerType: 'salesman' | 'owner' | null;
+  accountId: number;  // Add this line
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface InventoryItem {

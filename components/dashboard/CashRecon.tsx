@@ -8,9 +8,10 @@ interface CashReconProps {
     sales: Sale[];
     expenses: Expense[];
     inventory: InventoryItem[];
+    dailyOpeningBalances: { date: string; cash: number; bank: number }[];
 }
 
-const CashRecon: React.FC<CashReconProps> = ({ sales, expenses, inventory }) => {
+const CashRecon: React.FC<CashReconProps> = ({ sales, expenses, inventory, dailyOpeningBalances }) => {
     const [selectedDate, setSelectedDate] = useState(getTodayLocalDateString());
     const [registerCash, setRegisterCash] = useState('');
     const [registerBank, setRegisterBank] = useState('');
@@ -26,21 +27,17 @@ const CashRecon: React.FC<CashReconProps> = ({ sales, expenses, inventory }) => 
         // Set to midnight of the selected date to ensure correct comparison
         selected.setHours(0, 0, 0, 0);
 
-        // Filter transactions for *before* selected day for opening balance
-        const priorSales = sales.filter(s => new Date(s.date) < selected);
-        const priorExpenses = expenses.filter(e => new Date(e.date) < selected);
-        
-        // Opening balance calculation
-        const openingCash = priorSales.filter(s => s.paymentMethod === 'Cash').reduce((sum, s) => sum + s.amount, 0) - priorExpenses.filter(e => e.paymentMethod === 'Cash').reduce((sum, e) => sum + e.amount, 0);
-        const openingBank = priorSales.filter(s => s.paymentMethod === 'Bank').reduce((sum, s) => sum + s.amount, 0) - priorExpenses.filter(e => e.paymentMethod === 'Bank').reduce((sum, e) => sum + e.amount, 0);
+        const openingBalance = (dailyOpeningBalances || []).find(b => b.date === selectedDate) || { cash: 0, bank: 0 };
+        const openingCash = openingBalance.cash;
+        const openingBank = openingBalance.bank;
 
         // Filter transactions for *selected day*
-        const todaySales = sales.filter(s => getLocalDateString(s.date) === selectedDate);
-        const todayExpenses = expenses.filter(e => getLocalDateString(e.date) === selectedDate);
+        const todaySales = (sales || []).filter(s => getLocalDateString(s.date) === selectedDate);
+        const todayExpenses = (expenses || []).filter(e => getLocalDateString(e.date) === selectedDate);
 
         // Get inventory item IDs
-        const bottle19L = inventory.find(i => is19LItemName(i.name));
-        const bottle6L = inventory.find(i => is6LItemName(i.name));
+        const bottle19L = (inventory || []).find(i => is19LItemName(i.name));
+        const bottle6L = (inventory || []).find(i => is6LItemName(i.name));
 
         // Revenue calculations for today
         const calcRevenue = (itemId: number | undefined) => {
