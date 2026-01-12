@@ -1,9 +1,9 @@
 // components/expenses/ExpenseAccounts.tsx
 import { useEffect, useState, type FormEvent } from 'react';
-import { supabase } from '../../src/supabase';
-import { Button } from '../../src/components/ui/button';
-import { Input } from '../../src/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../src/components/ui/table';
+import { supabase } from '../src/supabase';
+import { Button } from '../src/components/ui/button';
+import { Input } from '../src/components/ui/input';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../src/components/ui/table';
 import { Plus, Trash2, Edit, Check, X } from 'lucide-react';
 import { toast } from 'sonner';
 
