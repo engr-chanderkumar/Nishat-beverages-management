@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { ExpenseAccounts } from '../../components/expenses/expenseAccounts'
-import { AccountExpenses } from '../../components/expenses/AccountExpenses'
-import Dashboard from '../../components/dashboard/Dashboard'
-import CustomerAccounts from '../../components/customer/CustomerAccounts'
-import Inventory from '../../components/dashboard/Inventory'
-import ClosingReport from '../../components/dashboard/ClosingReport'
+import { ExpenseAccounts } from '../components/expenses/expenseAccounts'
+import { AccountExpenses } from '../components/expenses/AccountExpenses'
+import Dashboard from '../components/dashboard/Dashboard'
+import CustomerAccounts from '../components/customer/CustomerAccounts'
+import Inventory from '../components/dashboard/Inventory'
+import ClosingReport from '../components/dashboard/ClosingReport'
 import { Toaster } from 'sonner'
 
 function App() {
